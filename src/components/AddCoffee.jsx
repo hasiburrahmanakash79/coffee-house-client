@@ -1,87 +1,124 @@
+import Swal from 'sweetalert2'
+
 const AddCoffee = () => {
+    const handleAddCoffee = event =>{
+        event.preventDefault()
+        const form = event.target 
+        const coffeeName = form.coffeeName.value 
+        const supplier = form.supplier.value
+        const category = form.category.value
+        const chef = form.chef.value 
+        const test = form.test.value 
+        const details = form.detail.value
+        const photo = form.photoURL.value 
+        const newCoffee = {coffeeName, supplier, category, chef, test, details, photo}
+
+        console.log(newCoffee);
+
+        fetch('http://localhost:5000/coffee',{
+            method: 'POST',
+            headers:{
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(newCoffee)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'Successful',
+                    text: 'Do you want to continue',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                  })
+            }
+        })
+    }
+
   return (
     <div className="container mx-auto mt-5 p-10 bg-slate-100">
       <h1 className="text-center text-5xl font-bold">Add a coffee</h1>
-      <p className="text-center mx-auto my-8 w-3/5">
+      <p className="text-center mx-auto my-8 md:w-3/5">
         It is a long established fact that a reader will be distraceted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
         letters, as opposed to using Content here.
       </p>
-      <form>
-      <div className="flex gap-10 justify-center">
-        <div className="w-2/5">
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Coffee name</span>
-            </label>
-            <input
-              type="text"
-              name="coffeeName"
-              placeholder="Enter coffee name"
-              className="input input-bordered w-full"
-            />
+      <form onSubmit={handleAddCoffee}>
+        <div className="md:flex gap-10 justify-center">
+          <div className="md:w-1/2">
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Coffee name</span>
+              </label>
+              <input
+                type="text"
+                name="coffeeName"
+                placeholder="Enter coffee name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Supplier</span>
+              </label>
+              <input
+                type="text"
+                name="supplier"
+                placeholder="Enter coffee supplier"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Category</span>
+              </label>
+              <input
+                type="text"
+                name="category"
+                placeholder="Enter coffee category"
+                className="input input-bordered w-full"
+              />
+            </div>
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Supplier</span>
-            </label>
-            <input
-              type="text"
-              name="supplier"
-              placeholder="Enter coffee supplier"
-              className="input input-bordered w-full"
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Category</span>
-            </label>
-            <input
-              type="text"
-              name="category"
-              placeholder="Enter coffee category"
-              className="input input-bordered w-full"
-            />
+          <div className="md:w-1/2">
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Chef</span>
+              </label>
+              <input
+                type="text"
+                name="chef"
+                placeholder="Enter coffee chef"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Taste</span>
+              </label>
+              <input
+                type="text"
+                name="test"
+                placeholder="Enter coffee taste"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Details</span>
+              </label>
+              <input
+                type="text"
+                name="detail"
+                placeholder="Enter coffee details"
+                className="input input-bordered w-full"
+              />
+            </div>
           </div>
         </div>
-        <div className="w-2/5">
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Chef</span>
-            </label>
-            <input
-              type="text"
-              name="chef"
-              placeholder="Enter coffee chef"
-              className="input input-bordered w-full"
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Taste</span>
-            </label>
-            <input
-              type="text"
-              name="test"
-              placeholder="Enter coffee taste"
-              className="input input-bordered w-full"
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Details</span>
-            </label>
-            <input
-              type="text"
-              name="detail"
-              placeholder="Enter coffee details"
-              className="input input-bordered w-full"
-            />
-          </div>
-        </div>
-      </div>
-        <div className="form-control mx-auto px-1 md:w-5/6">
+        <div className="form-control mx-auto w-full">
           <label className="label">
             <span className="label-text">Photo</span>
           </label>
@@ -92,8 +129,8 @@ const AddCoffee = () => {
             className="input input-bordered w-full"
           />
         </div>
-        <div className="form-control mx-auto my-10 px-1 md:w-5/6">
-        <button className="btn btn-outline">Add Coffee</button>
+        <div className="form-control mx-auto my-10 w-full">
+          <button className="btn btn-outline">Add Coffee</button>
         </div>
       </form>
     </div>
