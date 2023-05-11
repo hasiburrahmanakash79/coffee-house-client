@@ -1,4 +1,5 @@
 import { FaEye, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
@@ -29,7 +30,6 @@ const CoffeeCard = ({ coffee }) => {
                     'success'
                   ) 
                 }
-                
             })
             }
           })
@@ -52,7 +52,7 @@ const CoffeeCard = ({ coffee }) => {
           </div>
           <div className="flex gap-4">
             <button><FaEye></FaEye></button>
-            <button><FaEdit></FaEdit></button>
+            <Link to={`/updateCoffee/${_id}`}><button><FaEdit></FaEdit></button></Link>
             <button onClick={() => handleDelete(_id)}><FaTrashAlt></FaTrashAlt></button>
           </div>
         </div>
